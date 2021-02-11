@@ -4,7 +4,7 @@ meeting_id=$1
 
 bbb_fqdn="www.example.com"
 
-cd /var/www/bbb-recorder
+cd /var/www/bbb-mp4
 
 echo "Converting $meeting_id to Webm" | systemd-cat -p warning -t bbb-mp4
 node export.js "https://$bbb_fqdn/playback/presentation/2.0/playback.html?meetingId=$meeting_id"
