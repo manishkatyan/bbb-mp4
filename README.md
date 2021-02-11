@@ -7,7 +7,7 @@ Clone the project first:
 
 ```
 git clone https://github.com/manishkatyan/bbb-mp4.git
-cd bbb-mp4
+cd bbb-mp4 && mkdir video
 npm install --ignore-scripts
 cp .env-example .env
 ```
