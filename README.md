@@ -4,7 +4,7 @@ A new version of bbb-mp4 that is super simple and easy to integrate with BigBlue
 
 **How it works?**
 
-When you execute `node bbb-mp4`, Chrome browser is opened in the background with the BigBlueButton playback URL in a Virtual Screen Buffer, the recording is played and the screen is recorded WEBM format. After compeltion of recording, FFMEG is used to convert to MP4 and moved to `/var/www/bigbluebutton-default/record`. You can change value of `copyToPath` from .env
+When you execute `node bbb-mp4 <meetingID>`, Chrome browser is opened in the background with the BigBlueButton playback URL in a Virtual Screen Buffer, the recording is played and the screen is recorded WEBM format. After compeltion of recording, FFMEG is used to convert to MP4 and moved to `/var/www/bigbluebutton-default/record`. You can change value of `copyToPath` from .env
 
 ##  Install
 
