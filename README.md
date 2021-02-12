@@ -3,9 +3,19 @@ A new version of bbb-mp4 that is super simple and easy to integrate with BigBlue
 
 
 **How it works?**
-When you execute `node bbb-mp4`, Chrome browser is opened in the background with the BigBlueButton playback URL in a Virtual Screen Buffer, the recording is played and the screen is recorded WEBM format. After compeltion of recording, FFMEG is used to convert to MP4 and moved to ``` copyTopath ```.
 
-## Install
+When you execute `node bbb-mp4`, Chrome browser is opened in the background with the BigBlueButton playback URL in a Virtual Screen Buffer, the recording is played and the screen is recorded WEBM format. After compeltion of recording, FFMEG is used to convert to MP4 and moved to `/var/www/bigbluebutton-default/record`. You can change value of `copyToPath` from .env
+
+##  Install
+
+1. xvfb (`apt install xvfb`)
+2. Google Chrome stable
+3. FFmpeg
+4. latest version of node
+5. Everything inside `dependencies_check.sh` (run `./dependencies_check.sh` to install all)
+
+The latest Google Chrome stable build should be use.
+
 
 1. Install XVFB
 ```sh
@@ -34,11 +44,10 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-5. Clone bbb-mp4, install NPM modules and execute what `./dependencies_check.sh` tells you to 
+5. Clone bbb-mp4 and execute what `./dependencies_check.sh` tells you to 
 ```sh
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
-apt install npm
 npm install --ignore-scripts
 cp .env-example .env
 ./dependencies_check.sh
