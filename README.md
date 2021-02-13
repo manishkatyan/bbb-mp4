@@ -2,9 +2,17 @@
 A new version of bbb-mp4 that is super simple and easy to integrate with BigBlueButton to automatically generate MP4 recordings.
 
 
-**How it works?**
+##How it works?
 
-When you execute `node bbb-mp4.js <meetingID>`, Chrome browser is opened in the background with the BigBlueButton playback URL in a Virtual Screen Buffer, the recording is played and the screen is recorded WEBM format. After compeltion of recording, FFMEG is used to convert to MP4 and moved to `/var/www/bigbluebutton-default/record`. You can change value of `copyToPath` from .env
+After a BigBlueButton class ends, recording process kicks in, which will process recording in three stages - archieve, process and publish. Once recording is published, `/usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb` is executed.
+
+In `post_publish.rb`, we invoke `bbb-mp4.sh` with corresponding `meeting_id` to convert recording into mp4 video.
+
+`bbb-mp4.sh` starts a node process to launch Chrome browser with the BigBlueButton playback URL in a Virtual Screen Buffer, that plays the recording and record the screen in WEBM format. 
+
+After compeltion of recording, FFmpeg is used to convert WEBM to MP4 and moved to `/var/www/bigbluebutton-default/recording`.
+
+You can view the MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
 ##  Install
 
@@ -13,9 +21,6 @@ When you execute `node bbb-mp4.js <meetingID>`, Chrome browser is opened in the 
 3. FFmpeg
 4. latest version of node
 5. Everything inside `dependencies_check.sh` (run `./dependencies_check.sh` to install all)
-
-The latest Google Chrome stable build should be use.
-
 
 1. Install XVFB
 ```sh
