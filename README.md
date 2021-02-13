@@ -23,9 +23,16 @@ git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
 cp .env-example .env
 ```
-### Options
+Edit `.env` to update the following parameters:
 1. bbb_fqdn: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
 2. copyToPath: location where converted MP4 videos should be kept. Leave it at the default value so that you can browse MP4 video via https://bbb_fqdn/recording. Please create a directory `recording` at `/var/www/bigbluebutton-default/`.
+
+```sh
+# Edit post_publish.rb to update the location of `bbb-mp4` project in line number 41. By default it's set to `/var/www/bbb-mp4/`.
+
+cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb
+```
+Above will replace the default version of `post_publish.rb` with our version that will invoke `bbb-mp4.sh` to launch MP4 conversion after a class recording is processed and published by BigBlueButton. 
 
 ```ssh
 # Execute the following to install all required packages. 
