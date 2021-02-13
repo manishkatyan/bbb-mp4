@@ -1,3 +1,5 @@
+/* Write purpose*/
+
 window.onload = () => {
   if (window.recorderInjected) return
   Object.defineProperty(window, 'recorderInjected', { value: true, writable: false })

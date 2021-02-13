@@ -1,4 +1,6 @@
-/* global chrome, MediaRecorder, FileReader */
+/* global chrome, 
+MediaRecorder, 
+FileReader */
 
 let recorder = null;
 let filename = null;
