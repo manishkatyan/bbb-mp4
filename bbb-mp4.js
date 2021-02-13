@@ -4,7 +4,7 @@ const fs = require('fs');
 const os = require('os');
 const homedir = os.homedir();
 const platform = os.platform();
-const { copyToPath, playbackFile } = require('./env');
+const { copyToPath} = require('./env');
 const spawn = require('child_process').spawn;
 
 var xvfb        = new Xvfb({
@@ -51,7 +51,7 @@ async function main() {
             process.exit(1);
         }
         // Verify if recording URL has the correct format
-        var urlRegex = new RegExp('^https?:\\/\\/.*\\/playback\\/presentation\\/2\\.0\\/' + playbackFile + '\\?meetingId=[a-z0-9]{40}-[0-9]{13}');
+        var urlRegex = new RegExp('^https?:\\/\\/.*\\/playback\\/presentation\\/2\\.0\\/playback.html\\?meetingId=[a-z0-9]{40}-[0-9]{13}');
         if(!urlRegex.test(url)){
             console.warn('Invalid recording URL!');
             process.exit(1);
