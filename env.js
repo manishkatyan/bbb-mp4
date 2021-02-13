@@ -1,3 +1,4 @@
+/* Write purpose */
 const dotenv = require("dotenv");
 
 const result = dotenv.config();

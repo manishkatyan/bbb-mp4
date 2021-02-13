@@ -1,5 +1,6 @@
+
 {
-  "name": "BigBlueButton Recorder",
+  "name": "bbb-mp4",
   "version": "0.1.0",
   "manifest_version": 2,
   "background": {

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# all dependencies here
+
 packages="gconf-service
 libasound2
 libatk1.0-0
