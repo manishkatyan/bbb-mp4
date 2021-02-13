@@ -1,6 +1,7 @@
 #!/bin/bash
 
 chmod +x *.sh
+mkdir video
 
 echo "Installing xvfb"
 apt-get -y install xvfb
