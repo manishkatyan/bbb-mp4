@@ -22,6 +22,7 @@ cd /var/www
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
 cp .env-example .env
+mkdir /var/www/bigbluebutton-default/recording
 ```
 Edit `.env` to update the following parameters:
 1. bbb_fqdn: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
