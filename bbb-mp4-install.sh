@@ -1,7 +1,15 @@
 #!/bin/bash
 
+# Load .env variables
+set -a
+source <(cat .env | \
+    sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
+set +a
+
 chmod +x *.sh
-mkdir webm
+mkdir "$webm_dir"
+mkdir "$mp4_dir"
+mkdir "$download_dir"
 
 echo "Installing xvfb"
 apt-get -y install xvfb
