@@ -55,20 +55,22 @@ done
 neededCount=${#neededPackages[@]}
 
 if [[ $neededCount -gt 0 ]]; then
-  echo "-----------------------------------------------------"
-  echo "Run the following to get all of the required packages"
-  echo "-----------------------------------------------------"
-  echo "sudo apt install \\"
+#  echo "-----------------------------------------------------"
+#  echo "Run the following to get all of the required packages"
+#  echo "-----------------------------------------------------"
+#  echo "sudo apt install \\"
   for i in "${neededPackages[@]}"; do
     output="$i"
 
      if [[ ${neededPackages[@]: -1 } != "$i" ]]; then
-        output+=" \\"
+        #output+=" \\"
+        output=" "
      fi
 
-    echo "$output"
+#   echo "$output"
   done
-  echo "-----------------------------------------------------"
+#  echo "-----------------------------------------------------"
+apt-get -y install "$output"
 fi
 
 exit 0

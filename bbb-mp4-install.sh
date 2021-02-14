@@ -14,17 +14,16 @@ echo "copying post_publish.rb to /usr/local/bigbluebutton/core/scripts/post_publ
 cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/
 
 echo "Installing xvfb"
+apt-get -y update
 apt-get -y install xvfb
 
 echo "Installing Google Chrome"
 curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
 echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
-apt-get -y update
 apt-get -y install google-chrome-stable
 
 echo "Installing FFmpeg"
-add-apt-repository ppa:jonathonf/ffmpeg-4
-apt-get update
+add-apt-repository -y ppa:jonathonf/ffmpeg-4
 apt-get -y install ffmpeg
 
 echo "Installing NodeJS"
