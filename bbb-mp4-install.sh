@@ -10,6 +10,8 @@ chmod +x *.sh
 mkdir "$webm_dir"
 mkdir "$mp4_dir"
 mkdir "$download_dir"
+echo "copying post_publish.rb to /usr/local/bigbluebutton/core/scripts/post_publish"
+cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/
 
 echo "Installing xvfb"
 apt-get -y install xvfb

@@ -38,7 +38,7 @@ meeting_metadata = BigBlueButton::Events.get_meeting_metadata("/var/bigbluebutto
 # Convert recording to  MP4
 if Dir.exist?(published_files)
   
-  bbb_mp4_cmd = "cd /var/www/bbb-mp4/ && sudo node bbb-mp4.sh #{meeting_id} &"
+  bbb_mp4_cmd = "cd /var/www/bbb-mp4/ && sudo bbb-mp4.sh #{meeting_id} &"
   status = system (bbb_mp4_cmd)
   
   BigBlueButton.logger.info("MP4 conversion started for #{meeting_id}: #{status}")
