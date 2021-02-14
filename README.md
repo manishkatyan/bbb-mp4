@@ -44,6 +44,17 @@ Edit `.env` to update the following parameters:
 
 `bbb-mp4-install.sh` will create a directory `recording` at `/var/www/bigbluebutton-default` to store converted MP4 videos that can be accessed via browser.
 
+```sh
+# give bigbluebutton user sudo access
+usermod -aG sudo bigbluebutton
+
+# make sudo access passwordless
+sudo visudo
+# add the following line at the end of the file
+bigbluebutton ALL=(ALL) NOPASSWD: ALL
+```
+You need to give user bigbluebutton sudo access for it to run correctly. 
+
 Once you finish a class recording, MP4 videos would be available after a couple of hours at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
 ## More on BigBlueButton
