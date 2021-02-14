@@ -4,11 +4,14 @@ const fs = require('fs');
 const os = require('os');
 const homedir = os.homedir();
 const platform = os.platform();
-const { copyToPath} = require('./env');
+const { mp4_dir, webm_dir} = require('./env');
 const spawn = require('child_process').spawn;
 
+//Required to find the latest file (downloaded webm) in a directory
+const glob = require('glob');
+
 var xvfb        = new Xvfb({
-    silent: true,
+    silent: false,
     xvfb_args: ["-screen", "0", "1280x800x24", "-ac", "-nolisten", "tcp", "-dpi", "96", "+extension", "RANDR"]
 });
 var width       = 1280;
@@ -18,7 +21,7 @@ var options     = {
   args: [
     '--enable-usermedia-screen-capturing',
     '--allow-http-screen-capture',
-    '--auto-select-desktop-capture-source=bbbrecorder',
+    '--auto-select-desktop-capture-source=bbb-mp4',
     '--load-extension=' + __dirname,
     '--disable-extensions-except=' + __dirname,
     '--disable-infobars',
@@ -57,29 +60,9 @@ async function main() {
             process.exit(1);
         }
 
-        var exportname = process.argv[3];
-        // Use meeting ID as export name if it isn't defined or if its value is "MEETING_ID"
-        if(!exportname || exportname == "MEETING_ID"){
-            exportname = url.split("=")[1] + '.webm';
-        }
-
-        var duration = process.argv[4];
-        // If duration isn't defined, set it in 0
-        if(!duration){
-            duration = 0;
-        // Check if duration is a natural number
-        }else if(!Number.isInteger(Number(duration)) || duration < 0){
-            console.warn('Duration must be a natural number!');
-            process.exit(1);
-        }
-
-        var convert = process.argv[5]
-        if(!convert){
-            convert = false
-        }else if(convert !== "true" && convert !== "false"){
-            console.warn("Invalid convert value!");
-            process.exit(1);
-        }
+        var exportname = url.split("=")[1] + '.webm';
+	var meetingId = url.split("=")[1];
+        var duration = 0
 
         browser = await puppeteer.launch(options)
         const pages = await browser.pages()
@@ -88,10 +71,14 @@ async function main() {
 
         page.on('console', msg => {
             var m = msg.text();
-            //console.log('PAGE LOG:', m) // uncomment if you need
+            console.log('PAGE LOG:', m) // uncomment if you need
         });
 
         await page._client.send('Emulation.clearDeviceMetricsOverride')
+
+	//Set the download location of webm recordings.
+	await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: webm_dir + meetingId})
+
         // Catch URL unreachable error
         await page.goto(url, {waitUntil: 'networkidle2'}).catch(e => {
             console.error('Recording URL unreachable!');
@@ -139,11 +126,10 @@ async function main() {
         // Wait for download of webm to complete
         await page.waitForSelector('html.downloadComplete', {timeout: 0})
 
-        if(convert){
-            convertAndCopy(exportname)
-        }else{
-            copyOnly(exportname)
-        }
+	console.log("DownloadPath: " + webm_dir + meetingId);
+
+
+        convertAndCopy(exportname)
 
     }catch(err) {
         console.log(err)
@@ -161,30 +147,26 @@ main()
 
 function convertAndCopy(filename){
 
-    var copyFromPath = homedir + "/Downloads";
+    var copyFromPath = webm_dir;
     var onlyfileName = filename.split(".webm")
     var mp4File = onlyfileName[0] + ".mp4"
-    var copyFrom = copyFromPath + "/" + filename + ""
-    var copyTo = copyToPath + "/" + mp4File;
+    var copyTo = mp4_dir + mp4File;
 
-    if(!fs.existsSync(copyToPath)){
-        fs.mkdirSync(copyToPath);
+    var copyFrom = glob.sync(webm_dir + onlyfileName[0] + '/*webm').map(name => ({name, ctime: fs.statSync(name).ctime})).sort((a, b) => b.ctime - a.ctime)[0].name;
+
+    if(!fs.existsSync(mp4_dir)){
+        fs.mkdirSync(mp4_dir);
     }
 
     console.log(copyTo);
     console.log(copyFrom);
 
     const ls = spawn('ffmpeg',
-        [   '-y',
+        [   '-nostdin',
             '-i "' + copyFrom + '"',
-            '-c:v libx264',
-            '-preset veryfast',
-            '-movflags faststart',
-            '-profile:v high',
-            '-level 4.2',
-            '-max_muxing_queue_size 9999',
-            '-vf mpdecimate',
-            '-vsync vfr "' + copyTo + '"'
+            '-c:v ',
+            'copy',
+            '"'+ copyTo +'"'
         ],
         {
             shell: true
@@ -205,31 +187,12 @@ function convertAndCopy(filename){
         if(code == 0)
         {
             console.log("Convertion done to here: " + copyTo)
-            fs.unlinkSync(copyFrom);
-            console.log('successfully deleted ' + copyFrom);
+            //fs.unlinkSync(copyFrom);
+	    fs.rmdirSync(webm + onlyfileName[0], { recursive: true });
+            console.log('successfully deleted ' + webm + onlyfileName[0]);
         }
 
     });
 
 }
 
-function copyOnly(filename){
-
-    var copyFrom = homedir + "/Downloads/" + filename;
-    var copyTo = copyToPath + "/" + filename;
-
-    if(!fs.existsSync(copyToPath)){
-        fs.mkdirSync(copyToPath);
-    }
-
-    try {
-
-        fs.copyFileSync(copyFrom, copyTo)
-        console.log('successfully copied ' + copyTo);
-
-        fs.unlinkSync(copyFrom);
-        console.log('successfully delete ' + copyFrom);
-    } catch (err) {
-        console.log(err)
-    }
-}

@@ -17,6 +17,7 @@ chrome.runtime.onConnect.addListener(port => {
 
             case 'SET_EXPORT_PATH':
                 filename = msg.filename
+		console.log("SET_EXPORT_PATH: " + filename)
                 break
 
             case 'FFMPEG_SERVER':

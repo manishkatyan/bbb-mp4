@@ -1,7 +1,7 @@
 #!/bin/bash
 
 chmod +x *.sh
-mkdir video
+mkdir webm
 
 echo "Installing xvfb"
 apt-get -y install xvfb
