@@ -53,7 +53,7 @@ sudo visudo
 # add the following line at the end of the file
 bigbluebutton ALL=(ALL) NOPASSWD: ALL
 ```
-You need to give user bigbluebutton sudo access for it to run correctly. 
+You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 to run correctly. 
 
 Once you finish a class recording, MP4 videos would be available after a couple of hours at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
