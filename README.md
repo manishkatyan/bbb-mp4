@@ -17,23 +17,16 @@ You can view the MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp
 ##  Install
 
 ```sh
+# Assuming you install bbb-mp4 project at /var/www/
 # SSH to your BigBlueButton server and execute the following commands
 cd /var/www
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
 cp .env-example .env
-mkdir /var/www/bigbluebutton-default/recording
 ```
 Edit `.env` to update the following parameters:
 1. bbb_fqdn: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
-2. copyToPath: location where converted MP4 videos should be kept. Leave it at the default value so that you can browse MP4 video via https://bbb_fqdn/recording. Please create a directory `recording` at `/var/www/bigbluebutton-default/`.
-
-```sh
-# Edit post_publish.rb to update the location of `bbb-mp4` project in line number 41. By default it's set to `/var/www/bbb-mp4/`.
-
-cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb
-```
-Above will replace the default version of `post_publish.rb` with our version that will invoke `bbb-mp4.sh` to launch MP4 conversion after a class recording is processed and published by BigBlueButton. 
+2. mp4_dir: location where converted MP4 videos should be kept. Leave it at the default value so that you can view MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
 ```ssh
 # Execute the following to install all required packages. 
@@ -46,6 +39,12 @@ Above will replace the default version of `post_publish.rb` with our version tha
 3. FFmpeg
 4. NodeJS
 5. Dependencies (`dependencies_check.sh`)
+
+`bbb-mp4-install.sh` will replace the default version of `post_publish.rb` with its version that will invoke `bbb-mp4.sh` to launch MP4 conversion after a class recording is processed and published by BigBlueButton. 
+
+`bbb-mp4-install.sh` will create a directory `recording` at `/var/www/bigbluebutton-default` to store converted MP4 videos that can be accessed via browser.
+
+Once you finish a class recording, MP4 videos would be available after a couple of hours at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
 ## More on BigBlueButton
 
