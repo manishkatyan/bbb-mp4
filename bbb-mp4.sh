@@ -8,7 +8,7 @@ source <(cat .env | \
 set +a
 
 echo "Converting $meeting_id to Webm" | systemd-cat -p warning -t bbb-mp4
-node bbb-mp4.js "https://$bbb_fqdn/playback/presentation/2.0/playback.html?meetingId=$meeting_id"
+node bbb-mp4.js "https://$bbb_fqdn/playback/presentation/2.0/playback_default.html?meetingId=$meeting_id"
 
 echo "Converting $meeting_id to MP4" | systemd-cat -p warning -t bbb-mp4
 ffmpeg -nostdin -i "$webm_dir"/"$meeting_id".webm -c:v copy "$mp4_dir"/"$meeting_id".mp4
