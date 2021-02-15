@@ -60,7 +60,7 @@ You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 
 
 No changes are required from your side to view MP4 videos created by bbb-mp4. 
 
-As we updated the default playback.html, when you would visit the default playback url - `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>` - you will be redirected to the corresponding MP4 video url - `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`. 
+As we updated the default playback.html, when you would visit the default playback url - `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>` - you would be redirected to the corresponding MP4 video url - `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`. 
 
 If you are using Greenlight or Moodle, you will continue to use the same way to view MP4 videos.
 
@@ -69,6 +69,10 @@ In case you want to restore the default playback.html, you can find it at `/var/
 ## More on BigBlueButton
 
 Check-out the following apps to further extend features of BBB.
+
+### [bbb-admin](https://github.com/manishkatyan/bbb-admin)
+
+Scripts for BigBlueButton admins including extracting IP of users joining, participants attendance, poll answers and many other analytics. 
 
 ### [bbb-twilio](https://github.com/manishkatyan/bbb-twilio)
 
