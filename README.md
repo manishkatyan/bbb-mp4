@@ -92,10 +92,7 @@ Everything you need to know about BigBlueButton including pricing, comparison wi
 
 #### Inspired by
 
-bbb-mp4 app builds on the ideas from several other projects, especially:
-
-[puppetcam](https://github.com/muralikg/puppetcam)
-
-[Canvas-Streaming-Example](https://github.com/fbsamples/Canvas-Streaming-Example)
-
-[bbb-recorder](https://github.com/jibon57/bbb-recorder)
+bbb-mp4 app builds on the ideas from several other projects, including:
+- [puppetcam](https://github.com/muralikg/puppetcam)
+- [Canvas-Streaming-Example](https://github.com/fbsamples/Canvas-Streaming-Example)
+- [bbb-recorder](https://github.com/jibon57/bbb-recorder)
