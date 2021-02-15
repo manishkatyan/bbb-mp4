@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            var old_url_str = window.location.href;
+	    var old_url = new URL(old_url_str);
+	    var meeting_id = old_url.searchParams.get("meetingId");
+	    var new_url = "/recording/" + meeting_id + ".mp4";
+
+	    window.location.replace(new_url);
+        </script>
+        <title>HigherEdLab.com</title>
+    </head>
+    <body>
+        If you are not redirected automatically, <a id="page_redirect" href="https://google.com">Click here</a>.
+    </body>
+
+<script type="text/javascript">
+    var link = document.getElementById('page_redirect');
+    link.href = new_url;
+</script>
+</html>
