@@ -18,7 +18,11 @@ mv /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb /usr/local
 cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/
 
 echo "Updating playback.html"
+# playback_default.html is used by bbb-mp4 for recording
+cp /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback_default.html
+# playback.html.default is for refernce, in case you want to restore default BBB playback 
 mv /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html.default
+# the new playback.html being copied will direct users to /recording/<meeting-id>.mp4
 cp playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html
 
 echo "Installing xvfb"
