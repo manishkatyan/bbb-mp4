@@ -38,11 +38,12 @@ Edit `.env` to update the following parameters:
 2. Google Chrome
 3. FFmpeg
 4. NodeJS
-5. Dependencies (`dependencies_check.sh`)
+5. Dependencies
 
-`bbb-mp4-install.sh` will replace the default version of `post_publish.rb` with its version that will invoke `bbb-mp4.sh` to launch MP4 conversion after a class recording is processed and published by BigBlueButton. 
-
-`bbb-mp4-install.sh` will create a directory `recording` at `/var/www/bigbluebutton-default` to store converted MP4 videos that can be accessed via browser.
+During this installation, `bbb-mp4-install.sh` will also do the following:
+- update the default `post_publish.rb` to invoke `bbb-mp4.sh` that will start automatic MP4 conversion after a class recording is published. 
+- create a directory `recording` at `/var/www/bigbluebutton-default` to store converted MP4 videos that can be accessed via browser.
+- update the default playback at `/var/bigbluebutton/playback/presentation/2.0/playback.html` to redirect to MP4 videos at `/recording`.
 
 ```sh
 # give bigbluebutton user sudo access
@@ -55,7 +56,15 @@ bigbluebutton ALL=(ALL) NOPASSWD: ALL
 ```
 You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 to run correctly. 
 
-Once you finish a class recording, MP4 videos would be available after a couple of hours at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
+## How to use it
+
+No changes are required from your side to view MP4 videos created by bbb-mp4. 
+
+As we updated the default playback.html, when you would visit the default playback url - `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>` - you will be redirected to the corresponding MP4 video url - `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`. 
+
+If you are using Greenlight or Moodle, you will continue to use the same way to view MP4 videos.
+
+In case you want to restore the default playback.html, you can find it at `/var/bigbluebutton/playback/presentation/2.0/playback.html.default`.
 
 ## More on BigBlueButton
 

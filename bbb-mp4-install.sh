@@ -7,11 +7,19 @@ source <(cat .env | \
 set +a
 
 chmod +x *.sh
+
+echo "Creating directories"
 mkdir "$webm_dir"
 mkdir "$mp4_dir"
 mkdir "$download_dir"
-echo "copying post_publish.rb to /usr/local/bigbluebutton/core/scripts/post_publish"
+
+echo "Updating post_publish.rb"
+mv /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default
 cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/
+
+echo "Updating playback.html"
+mv /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html.default
+cp playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html
 
 echo "Installing xvfb"
 apt-get -y update
