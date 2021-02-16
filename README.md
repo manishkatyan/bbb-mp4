@@ -15,6 +15,7 @@ After compeltion of recording, FFmpeg is used to convert WEBM to MP4 and moved t
 When you visit the default BBB playback url `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>`, either of the following two cases happen:
 - MP4 video exists: you are redirect to `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4` to view MP4 video 
 - MP4 video doesn't exist: you are redirect to `https://<your-bbb-fqdn>/playback/presentation/2.0/playback_default.html?meetingId=<meeting_id>` to view default playback recording
+
 Hence, you can safely deploy this project on your existing BigBlueButton server. Going forward, all your recordings would get converted in MP4 videos. Older recordings will still be accessible as default BBB playback recording.
 
 Do you find this project useful? Give us a star!
