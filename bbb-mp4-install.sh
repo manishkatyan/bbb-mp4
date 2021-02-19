@@ -23,7 +23,7 @@ else
 fi
 
 echo "Updating playback.html"
-if [ ! -f "/var/bigbluebutton/playback/presentation/2.0/playback.html.default.html" ]; then
+if [ ! -f "/var/bigbluebutton/playback/presentation/2.0/playback.html.default" ]; then
   
   echo "playback.html.default doesn't exist. Proceed with replacing.";
   
