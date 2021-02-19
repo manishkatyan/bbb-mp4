@@ -70,6 +70,8 @@ As we updated the default playback.html, when you would visit the default playba
 
 If you are using Greenlight or Moodle, you will continue to use the same way to view MP4 videos.
 
+## Uninstall
+
 In case you want to restore the default playback.html, please follow the steps below:
 
 ```sh
