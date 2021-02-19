@@ -23,20 +23,17 @@ else
 fi
 
 echo "Updating playback.html"
-if [ ! -f "/var/bigbluebutton/playback/presentation/2.0/playback.html.default" ]; then
+if [ ! -f "/var/bigbluebutton/playback/presentation/2.0/playback_default.html" ]; then
   
-  echo "playback.html.default doesn't exist. Proceed with replacing.";
+  echo "playback_default.html doesn't exist. Proceed with replacing.";
   
-  # playback_default.html is used by bbb-mp4 for recording
+  # playback_default.html is used by bbb-mp4 for recording. If you want to remove bbb-mp4, rename playback_default.html to playback.html.
   cp /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback_default.html
   
-  # playback.html.default is for refernce, in case you want to restore default BBB playback 
-  mv /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html.default
-  
-  # the new playback.html being copied will direct users to /recording/<meeting-id>.mp4
+  # the new playback.html, that we are copying, will direct users to /recording/<meeting-id>.mp4
   cp playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html
 else
-  echo "playback.html.default exists. Skipping replacing.";
+  echo "playback_default.html exists. Skipping replacing.";
 fi
 
 
