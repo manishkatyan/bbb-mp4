@@ -20,8 +20,6 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 - Going forward, all your recordings would get converted into MP4 videos. 
 - Older recordings will still be accessible as default BBB playback recording.
 
-Do you find this project useful? Give us a star!
-
 ##  Install
 
 ```sh
