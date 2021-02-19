@@ -2,7 +2,7 @@
 <html lang="en-US">
     <head>
         <meta charset="UTF-8">
-        
+
 	<script type="text/javascript">
             var old_url_str = window.location.href;
 	    var old_url = new URL(old_url_str);
@@ -12,22 +12,22 @@
 	    var mp4_exists = false;
 
 	    //Redirect only if MP4 video exists
-	    var request = new XMLHttpRequest();  
+	    var request = new XMLHttpRequest();
 	    request.open('GET', new_url, true);
 	    request.onreadystatechange = function(){
     	    if (request.readyState === 4){
-                if (request.status === 404) {  
+                if (request.status === 404) {
 	    		window.location.replace(old_url_default);
                 } else {
 			mp4_exists = true;
-	    		window.location.replace(new_url);	
-		}  
+	    		window.location.replace(new_url);
+		}
             }
             };
             request.send();
 
         </script>
-        <title>HigherEdLab.com</title>
+        <title>BBB-MP4</title>
     </head>
     <body>
         If you are not redirected automatically, <a id="page_redirect" href="https://google.com">Click here</a>.
@@ -35,7 +35,7 @@
 
 <script type="text/javascript">
     var link = document.getElementById('page_redirect');
-    
+
     if(mp4_exists) {
         link.href = new_url;
     } else {
