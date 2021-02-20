@@ -20,8 +20,6 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 - Going forward, all your recordings would get converted into MP4 videos. 
 - Older recordings will still be accessible as default BBB playback recording.
 
-Do you find this project useful? Give us a star!
-
 ##  Install
 
 ```sh
@@ -72,7 +70,27 @@ As we updated the default playback.html, when you would visit the default playba
 
 If you are using Greenlight or Moodle, you will continue to use the same way to view MP4 videos.
 
-In case you want to restore the default playback.html, you can find it at `/var/bigbluebutton/playback/presentation/2.0/playback.html.default`.
+## Uninstall
+
+In case you want to restore the default playback.html, please follow the steps below:
+
+```sh
+mv /var/bigbluebutton/playback/presentation/2.0/playback_default.html /var/bigbluebutton/playback/presentation/2.0/playback.html
+mv /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb
+```
+With this, you would be able to restore default playback behavior and default post_poublish action.
+
+## BigBlueButton Tech Support
+
+Are you facing difficulties with your BigBlueButton server?
+
+Lean on our expertise to smoothly run your BigBlueButton server.
+
+Get 24×7 connected with our Tech team. On facing any difficulties, just message us and we’ll promptly fix it.
+
+Start today with a monthly subscription for $59 per BBB server.
+
+[Learn More](https://higheredlab.com/bigbluebutton-support/) about the scope of Tech support.
 
 ## More on BigBlueButton
 
