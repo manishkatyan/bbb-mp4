@@ -5,32 +5,44 @@
         
 	<script type="text/javascript">
 
-	function mp4_redirect() {
+function if_url_exists(url, callback) {
+    let request = new XMLHttpRequest;
+    request.open('GET', url, true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.setRequestHeader('Accept', '*/*');
+    request.onprogress = function(event) {
+        let status = event.target.status;
+        let statusFirstNumber = (status).toString()[0];
+        switch (statusFirstNumber) {
+            case '2':
+                request.abort();
+                return callback(true);
+            default:
+                request.abort();
+                return callback(false);
+        };
+    };
+    request.send('');
+};
 
-            var old_url_str = window.location.href;
-	    var old_url = new URL(old_url_str);
-	    var meeting_id = old_url.searchParams.get("meetingId");
-	    var new_url = "/recording/" + meeting_id + ".mp4";
-	    var old_url_default = old_url_str.split("playback.html").join("playback_default.html");
-	    var mp4_exists = false;
+function mp4_redirect() {
+        var old_url_str = window.location.href;
+	var old_url = new URL(old_url_str);
+	var meeting_id = old_url.searchParams.get("meetingId");
+	var new_url = "/recording/" + meeting_id + ".mp4";
+	var old_url_default = old_url_str.split("playback.html").join("playback_default.html");
+	if_url_exists(new_url, function(exists) {
+    		console.log(exists);
 
-	    //Redirect only if MP4 video exists
-	    var request = new XMLHttpRequest();  
-	    request.open('GET', new_url, true);
-	    request.onreadystatechange = function(){
-    	    if (request.readyState === 4){
-                if (request.status === 404) {  
-	    		window.location.replace(old_url_default);
-			document.getElementById('page_redirect').href = old_url_default;
-                } else {
-			mp4_exists = true;
+		if(exists) {
 	    		window.location.replace(new_url);	
 			document.getElementById('page_redirect').href = new_url;
-		}  
-            }
-            };
-            request.send();
-	}
+		} else {
+	    		window.location.replace(old_url_default);
+			document.getElementById('page_redirect').href = old_url_default;
+		}
+	});
+}
 
 	//redirect after page load
 	window.onload=mp4_redirect;
