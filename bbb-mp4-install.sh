@@ -8,9 +8,6 @@ set +a
 
 chmod +x *.sh
 
-echo "Creating directories"
-mkdir "$BBB_MP4_LOCATION"
-
 echo "Updating post_publish.rb"
 if [ ! -f "/usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default" ]; then
   echo "post_publish.rb.default doesn't exist. Proceed with replacing.";
