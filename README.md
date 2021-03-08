@@ -20,6 +20,9 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 - Going forward, all your recordings would get converted into MP4 videos. 
 - Older recordings will still be accessible as default BBB playback recording.
 
+### Requirement 
+1. Install the Docker as per the instruction mentioned here https://docs.docker.com/engine/install/
+
 ##  Install
 
 ```sh
@@ -28,18 +31,18 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 cd /var/www
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
-cp .env-example .env
+cp env-example .env
 ```
 Edit `.env` to update the following parameters:
-1. bbb_fqdn: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
-2. mp4_dir: location where converted MP4 videos should be kept. Leave it at the default value so that you can view MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
+1. BBB_DOMAIN_NAME: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
+2. COPY_TO_LOCATION: location where converted MP4 videos should be kept. Leave it at the default value so that you can view MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
+
 
 ```ssh
 # Execute the following to install all required packages. 
 ./bbb-mp4-install.sh
 ```
-`bbb-mp4-install.sh` will install the following packages:
-
+`bbb-mp4-install.sh` will install the following packages In Docker :
 1. XVFB
 2. Google Chrome
 3. FFmpeg

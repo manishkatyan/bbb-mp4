@@ -1,15 +1,13 @@
-#!/bin/bash
+#!usr/bin/sh
 
-meeting_id=$1
+. ./.env
 
-set -a
-source <(cat .env | \
-    sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
-set +a
+MEETING_ID=$1
 
-echo "Converting $meeting_id to Webm" | systemd-cat -p warning -t bbb-mp4
-node bbb-mp4.js "https://$bbb_fqdn/playback/presentation/2.0/playback_default.html?meetingId=$meeting_id"
-
-echo "Converting $meeting_id to MP4" | systemd-cat -p warning -t bbb-mp4
-#ffmpeg -nostdin -i "$webm_dir"/"$meeting_id".webm -c:v copy "$mp4_dir"/"$meeting_id".mp4
-ffmpeg -nostdin -y -i "$webm_dir"/"$meeting_id".webm -c:v libx264 -preset veryfast -movflags faststart -profile:v high -level 4.2 -max_muxing_queue_size 9999  -vf mpdecimate -vsync vfr "$mp4_dir"/"$meeting_id".mp4
+echo "converting $MEETING_ID to mp4" |  systemd-cat -p warning -t bbb-mp4
+sudo docker run --rm -d \
+                --name $MEETING_ID \
+                -v $COPY_TO_LOCATION:/usr/src/app/download \
+                --env-file .env \
+                --env REC_URL=https://$BBB_DOMAIN_NAME/playback/presentation/2.0/$playbackFile?meetingId=$MEETING_ID \
+                bbb-mp4:v1

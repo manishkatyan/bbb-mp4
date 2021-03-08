@@ -8,11 +8,6 @@ set +a
 
 chmod +x *.sh
 
-echo "Creating directories"
-mkdir "$webm_dir"
-mkdir "$mp4_dir"
-mkdir "$download_dir"
-
 echo "Updating post_publish.rb"
 if [ ! -f "/usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default" ]; then
   echo "post_publish.rb.default doesn't exist. Proceed with replacing.";
@@ -36,27 +31,7 @@ else
   echo "playback_default.html exists. Skipping replacing.";
 fi
 
+#creating Docker image.
+echo "creating Docker image bbb-mp4:v1"
+docker build -t bbb-mp4:v1 .
 
-echo "Installing xvfb"
-apt-get -y update
-apt-get -y install xvfb
-
-echo "Installing Google Chrome"
-curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add
-echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
-apt-get -y update
-apt-get -y install google-chrome-stable
-
-echo "Installing FFmpeg"
-add-apt-repository -y ppa:jonathonf/ffmpeg-4
-apt-get -y install ffmpeg
-
-echo "Installing NodeJS"
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-apt-get -y install nodejs
-
-echo "Installing NPM"
-npm install --ignore-scripts
-
-echo "Checking dependencies"
-./dependencies_check.sh
