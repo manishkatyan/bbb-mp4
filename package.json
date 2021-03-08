@@ -1,9 +1,9 @@
 {
   "name": "bbb-mp4",
-  "version": "0.0.2",
-  "description": "Automatically converts BigBlueButton recordings into mp4 videos",
+  "version": "0.0.1",
+  "description": "Capture BBB recording & export as a video",
   "scripts": {
-    "example": "node bbb-mp4.js \"https://BBB_HOST/playback/presentation/2.0/playback.html?meetingId=MEETING_ID\""
+    "example": "node export.js \"https://BBB_HOST/playback/presentation/2.0/playback.html?meetingId=MEETING_ID\" meeting.webm 10 true"
   },
   "keywords": [
     "record",
