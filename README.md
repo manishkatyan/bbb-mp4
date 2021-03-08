@@ -28,7 +28,7 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 cd /var/www
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
-cp .env-example .env
+cp env-example .env
 ```
 Edit `.env` to update the following parameters:
 1. bbb_fqdn: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
@@ -38,8 +38,7 @@ Edit `.env` to update the following parameters:
 # Execute the following to install all required packages. 
 ./bbb-mp4-install.sh
 ```
-`bbb-mp4-install.sh` will install the following packages:
-
+`bbb-mp4-install.sh` will install the following packages In Docker :
 1. XVFB
 2. Google Chrome
 3. FFmpeg
