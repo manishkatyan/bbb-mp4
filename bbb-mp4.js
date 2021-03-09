@@ -18,7 +18,7 @@ var options     = {
   args: [
     '--enable-usermedia-screen-capturing',
     '--allow-http-screen-capture',
-    '--auto-select-desktop-capture-source=bbbrecorder',
+    '--auto-select-desktop-capture-source=bbb-mp4',
     '--load-extension=' + __dirname,
     '--disable-extensions-except=' + __dirname,
     '--disable-infobars',
@@ -31,19 +31,20 @@ var options     = {
   ],
 }
 
-if(platform == "linux"){
+// Only supports for linux 
+if(platform != "linux"){
+    process.exit(1);
+
+}else{
     options.executablePath = "/usr/bin/google-chrome"
-}else if(platform == "darwin"){
-    options.executablePath = "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 }
 
 async function main() {
     let browser, page;
 
     try{
-        if(platform == "linux"){
-            xvfb.startSync()
-        }
+        // Removed Platform check
+        xvfb.startSync()
 
         var url = process.argv[2];
         if(!url){
@@ -59,23 +60,9 @@ async function main() {
         }
 
         var exportname = url.split("=")[1]
-        var duration = 0
-        // If duration isn't defined, set it in 0
-        if(!duration){
-            duration = 0;
-        // Check if duration is a natural number
-        }else if(!Number.isInteger(Number(duration)) || duration < 0){
-            console.warn('Duration must be a natural number!');
-            process.exit(1);
-        }
 
-        var convert = process.argv[5]
-        if(!convert){
-            convert = false
-        }else if(convert !== "true" && convert !== "false"){
-            console.warn("Invalid convert value!");
-            process.exit(1);
-        }
+        // set duration to 0 and removed convert option
+        var duration = 0
 
         browser = await puppeteer.launch(options)
         const pages = await browser.pages()
@@ -108,10 +95,10 @@ async function main() {
         var recDuration = await page.evaluate(() => {
             return document.getElementById("video").duration;
         });
-        // If duration was set to 0 or is greater than recDuration, use recDuration value
-        if(duration == 0 || duration > recDuration){
-            duration = recDuration;
-        }
+        
+        // Set duration as recDuration
+        duration = recDuration;
+        
 
         await page.waitForSelector('button[class=acorn-play-button]');
         await page.$eval('#navbar', element => element.style.display = "none");
