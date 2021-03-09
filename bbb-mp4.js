@@ -95,7 +95,7 @@ async function main() {
         var recDuration = await page.evaluate(() => {
             return document.getElementById("video").duration;
         });
-        
+
         // Set duration as recDuration
         duration = recDuration;
         
@@ -110,7 +110,7 @@ async function main() {
 
         //  Start capturing screen with ffmpeg
         const ls = child_process.spawn('sh',
-                ['ffmpeg_cmd.sh',' ',
+                ['ffmpeg-cmd.sh',' ',
                 `${duration}`,' ',
                 `${exportname}`,' ', 
                 `${disp_num}`                     
