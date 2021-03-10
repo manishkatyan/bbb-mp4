@@ -12,7 +12,6 @@ var xvfb        = new Xvfb({
 });
 var width       = 1280;
 var height      = 800;
-var screen_size = width + 'x' + height
 var options     = {
   headless: false,
   args: [
@@ -140,9 +139,9 @@ async function main() {
         page.close && await page.close()
         browser.close && await browser.close()
 
-        if(platform == "linux"){
-            xvfb.stopSync()
-        }
+        // Stop xvfb after browser close
+        xvfb.stopSync()
+        
     }
 }
 
