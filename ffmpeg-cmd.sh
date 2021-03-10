@@ -1,13 +1,13 @@
 #!usr/bin/sh
-duration=$1
-exportname=$2
-disp_num=$3
+DURATION=$1
+EXPORT_NAME=$2
+DISPLAY_NUMBER=$3
 
-#ffmpeg command to capture screen
+#Record the BBB playback, playing in Google browser in xvfb virtual screen, as MP4 video
 ffmpeg  -draw_mouse 0 -s 1280x800 \
 	-framerate 30 \
 	-f x11grab -thread_queue_size 1024 \
-	-i :$disp_num \
+	-i :$DISPLAY_NUMBER \
 	-f alsa -thread_queue_size 1024 \
 	-itsoffset 0.57 \
 	-i pulse -ac 2 \
@@ -16,5 +16,5 @@ ffmpeg  -draw_mouse 0 -s 1280x800 \
 	-pix_fmt yuv420p \
 	-preset veryfast \
 	-movflags faststart \
-	-t $duration \
-	/usr/src/app/download/$exportname.mp4
+	-t $DURATION \
+	/usr/src/app/download/$EXPORT_NAME.mp4

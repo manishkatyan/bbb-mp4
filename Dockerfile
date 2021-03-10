@@ -30,9 +30,9 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install --yes nodejs
 
 #copy all files from bbb-mp4 project
-COPY docker-entrypoint.sh ffmpeg_cmd.sh nsswrapper.sh ./
-COPY bbb-mp4.js env.js ./
-COPY manifest.json package-lock.json package.json ./
+COPY *.sh ./
+COPY *.js ./
+COPY *.json ./
 COPY .env ./ 
 RUN mkdir download
 
