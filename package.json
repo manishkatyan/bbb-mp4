@@ -1,9 +1,9 @@
 {
   "name": "bbb-mp4",
-  "version": "0.0.1",
+  "version": "2.3.0",
   "description": "Capture BBB recording & export as a video",
   "scripts": {
-    "example": "node export.js \"https://BBB_HOST/playback/presentation/2.0/playback.html?meetingId=MEETING_ID\" meeting.webm 10 true"
+    "example": "node bbb-mp4.js \"https://BBB_HOST/playback/presentation/2.3/MEETING_ID?meetingId=MEETING_ID\""
   },
   "keywords": [
     "record",
@@ -12,9 +12,23 @@
     "screencast"
   ],
   "dependencies": {
-    "dotenv": "^8.2.0",
-    "puppeteer": "^2.1.1",
-    "ws": "^7.2.3",
-    "xvfb": "^0.3.0"
-  }
+    "dotenv": "^9.0.0",
+    "puppeteer": "^9.1.1",
+    "ws": "^7.4.5",
+    "xhr2": "^0.2.1",
+    "xmlhttprequest": "^1.8.0",
+    "xvfb": "^0.4.0"
+  },
+  "main": "bbb-mp4.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arunkumar141997/bbb-mp4.git"
+  },
+  "author": "HEL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arunkumar141997/bbb-mp4/issues"
+  },
+  "homepage": "https://github.com/arunkumar141997/bbb-mp4#readme"
 }

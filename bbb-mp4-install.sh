@@ -33,5 +33,5 @@ fi
 
 #creating Docker image.
 echo "creating Docker image bbb-mp4:v1"
-docker build -t bbb-mp4:v1 .
+docker build -t bbb-mp4:v2 .
 
