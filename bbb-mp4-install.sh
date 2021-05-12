@@ -18,20 +18,20 @@ else
 fi
 
 echo "Updating playback.html"
-if [ ! -f "/var/bigbluebutton/playback/presentation/2.0/playback_default.html" ]; then
+if [ ! -f "/var/bigbluebutton/playback/presentation/2.3/index_default.html" ]; then
   
-  echo "playback_default.html doesn't exist. Proceed with replacing.";
+  echo "index_default.html doesn't exist. Proceed with replacing.";
   
   # playback_default.html is used by bbb-mp4 for recording. If you want to remove bbb-mp4, rename playback_default.html to playback.html.
-  cp /var/bigbluebutton/playback/presentation/2.0/playback.html /var/bigbluebutton/playback/presentation/2.0/playback_default.html
+  cp /var/bigbluebutton/playback/presentation/2.3/index.html /var/bigbluebutton/playback/presentation/2.3/index_default.html
   
   # the new playback.html, that we are copying, will direct users to /recording/<meeting-id>.mp4
-  cp playback.html /var/bigbluebutton/playback/presentation/2.0/playback.html
+  cp index.html /var/bigbluebutton/playback/presentation/2.3/index.html
 else
   echo "playback_default.html exists. Skipping replacing.";
 fi
 
 #creating Docker image.
 echo "creating Docker image bbb-mp4:v1"
-docker build -t bbb-mp4:v2 .
+docker build -t bbb-mp4:2.3 .
 
