@@ -2,7 +2,7 @@
 
 # Load .env variables
 cp env-example .env
-sed -i "s/BBB_DOMAIN_NAME=.*/BBB_DOMAIN_NAME=\"$(bbb-conf --secret | grep URL|  cut -d'/' -f3)\"/g" .env
+sed -i "s/BBB_DOMAIN_NAME=.*/BBB_DOMAIN_NAME=$(bbb-conf --secret | grep URL|  cut -d'/' -f3)/g" .env
 set -a
 source <(cat .env | \
     sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
