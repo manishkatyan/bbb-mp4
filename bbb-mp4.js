@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 const child_process = require('child_process');
 // const XMLHttpRequest = require('xhr2'); //uncomment this if you want to show notes instead of chat
 const Xvfb = require('xvfb');
-const { playbackFile} = require('./env');
 
 // Generate randome display port number to avoide xvfb failure
 var disp_num = Math.floor(Math.random() * (200 - 99) + 99);
