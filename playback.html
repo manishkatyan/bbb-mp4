@@ -38,8 +38,9 @@ function mp4_redirect() {
 	    		window.location.replace(new_url);	
 			document.getElementById('page_redirect').href = new_url;
 		} else {
-	    		window.location.replace(old_url_default);
-			document.getElementById('page_redirect').href = old_url_default;
+            console.log("No mp4")
+	    	// 	window.location.replace(old_url_default);
+			// document.getElementById('page_redirect').href = old_url_default;
 		}
 	});
 }

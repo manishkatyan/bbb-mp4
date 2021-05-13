@@ -24,7 +24,7 @@ var options = {
         `--window-size=${width},${height}`,
     ],
 }
-
+options.executablePath = "/usr/bin/google-chrome"
 async function main() {
     let browser, page;
     try {
@@ -36,7 +36,7 @@ async function main() {
             process.exit(1);
         }
         // Validate URL 
-        var urlRegex = new RegExp('^https?:\\/\\/.*\\/playback\\/presentation\\/2\\.3\\/[a-z0-9]{40}-[0-9]{13}\\?meetingID=[a-z0-9]{40}-[0-9]{13}');
+        var urlRegex = new RegExp('^https?:\\/\\/.*\\/playback\\/presentation\\/2\\.3\\/[a-z0-9]{40}-[0-9]{13}');
         if (!urlRegex.test(url)) {
             console.warn('Invalid recording URL for bbb 2.3!');
             console.warn(url)
@@ -44,7 +44,7 @@ async function main() {
         }
 
         // Set exportname
-        var exportname = url.split("=")[1]
+        var exportname =  new URL(url).pathname.split("/")[4]
 
         // set duration to 0 
         var duration = 0
@@ -68,18 +68,27 @@ async function main() {
         await page.setBypassCSP(true)
 
         // Check if recording exists (search "404" message)
+        await page.waitForTimeout(5*1000)
+        try{
         var loadMsg = await page.$eval('.error-code', el => el.textContent);
+        console.log(loadMsg)
         if (loadMsg == "404") {
             console.warn("Recording not found!");
             process.exit(1);
+        }}
+        catch(err){
+           console.log("Recording found")
         }
 
         // Get recording duration
-        const rec_element = await page.waitForSelector('.vjs-remaining-time-display');
-        const recDuration = await rec_element.evaluate(el => el.textContent);
+        await page.waitForTimeout(5*1000) //wait for 5 second to load duration
+        const element = await page.waitForSelector('.vjs-remaining-time-display');
+        const recDuration = await element.evaluate(el => el.textContent);
+
 
         // Set duration as recDuration
         duration = recDuration.split(":").join("");
+        console.log(duration)
 
         await page.waitForSelector('button[class=vjs-big-play-button]');
         await page.$eval('.bottom-content', element => element.style.display = "none");
