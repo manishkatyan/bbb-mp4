@@ -15,4 +15,4 @@ sudo docker run --rm -d \
                 -v $COPY_TO_LOCATION:/usr/src/app/download \
                 --env-file .env \
                 --env REC_URL=https://$BBB_DOMAIN_NAME/playback/presentation/2.3/$MEETING_ID?meetingID=$MEETING_ID \
-                bbb-mp4:v2
+                bbb-mp4:2.3
