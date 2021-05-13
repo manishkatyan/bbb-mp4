@@ -8,27 +8,23 @@ set +a
 
 chmod +x *.sh
 
-echo "Updating post_publish.rb"
-if [ ! -f "/usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default" ]; then
-  echo "post_publish.rb.default doesn't exist. Proceed with replacing.";
-  mv /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default
-  cp post_publish.rb /usr/local/bigbluebutton/core/scripts/post_publish/    
-else
-  echo "post_publish.rb.default exists. Skipping replacing.";
-fi
+echo "Adding bbb_mp4.rb"
+cp -r bbb_mp4.rb /usr/local/bigbluebutton/core/scripts/post_publish/  
+chmod 777 bbb_mp4.rb
 
-echo "Updating playback.html"
+
+echo "Updating index.html"
 if [ ! -f "/var/bigbluebutton/playback/presentation/2.3/index_default.html" ]; then
   
   echo "index_default.html doesn't exist. Proceed with replacing.";
   
-  # playback_default.html is used by bbb-mp4 for recording. If you want to remove bbb-mp4, rename playback_default.html to playback.html.
+  # index_default.html is backup of default index.html that comes with fresh bbb install. If you want to remove bbb-mp4, rename index_default.html to index.html.
   cp /var/bigbluebutton/playback/presentation/2.3/index.html /var/bigbluebutton/playback/presentation/2.3/index_default.html
   
-  # the new playback.html, that we are copying, will direct users to /recording/<meeting-id>.mp4
+  # the new index.html, that we are copying, will allow users to download recordings
   cp index.html /var/bigbluebutton/playback/presentation/2.3/index.html
 else
-  echo "playback_default.html exists. Skipping replacing.";
+  echo "index_default.html exists. Skipping replacing.";
 fi
 
 #creating Docker image.
