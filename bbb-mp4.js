@@ -92,6 +92,8 @@ async function main() {
 
         await page.waitForSelector('button[class=vjs-big-play-button]');
         await page.$eval('.bottom-content', element => element.style.display = "none");
+        await page.$eval('.fullscreen-button', element => element.style.opacity = "0");
+        await page.$eval('.right', element => element.style.opacity = "0");
         await page.$eval('.vjs-control-bar', element => element.style.opacity = "0");
         await page.click('button[class=vjs-big-play-button]', { waitUntil: 'domcontentloaded' });
 
