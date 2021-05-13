@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/playback/presentation/2.3/favicon.ico" />
+    <link href="/playback/presentation/2.3/styles/video-js.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="BigBlueButton recording playback" />
+    <link rel="manifest" href="/playback/presentation/2.3/manifest.json" />
+    <title>Playback</title>
+    <link href="/playback/presentation/2.3/static/css/main.1770217c.chunk.css" rel="stylesheet">
+</head>
+
+<body><noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>!function (e) { function r(r) { for (var n, a, l = r[0], p = r[1], i = r[2], f = 0, b = []; f < l.length; f++)a = l[f], Object.prototype.hasOwnProperty.call(o, a) && o[a] && b.push(o[a][0]), o[a] = 0; for (n in p) Object.prototype.hasOwnProperty.call(p, n) && (e[n] = p[n]); for (c && c(r); b.length;)b.shift()(); return u.push.apply(u, i || []), t() } function t() { for (var e, r = 0; r < u.length; r++) { for (var t = u[r], n = !0, l = 1; l < t.length; l++) { var p = t[l]; 0 !== o[p] && (n = !1) } n && (u.splice(r--, 1), e = a(a.s = t[0])) } return e } var n = {}, o = { 1: 0 }, u = []; function a(r) { if (n[r]) return n[r].exports; var t = n[r] = { i: r, l: !1, exports: {} }; return e[r].call(t.exports, t, t.exports, a), t.l = !0, t.exports } a.m = e, a.c = n, a.d = function (e, r, t) { a.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: t }) }, a.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, a.t = function (e, r) { if (1 & r && (e = a(e)), 8 & r) return e; if (4 & r && "object" == typeof e && e && e.__esModule) return e; var t = Object.create(null); if (a.r(t), Object.defineProperty(t, "default", { enumerable: !0, value: e }), 2 & r && "string" != typeof e) for (var n in e) a.d(t, n, function (r) { return e[r] }.bind(null, n)); return t }, a.n = function (e) { var r = e && e.__esModule ? function () { return e.default } : function () { return e }; return a.d(r, "a", r), r }, a.o = function (e, r) { return Object.prototype.hasOwnProperty.call(e, r) }, a.p = "/playback/presentation/2.3/"; var l = this["webpackJsonpbbb-playback"] = this["webpackJsonpbbb-playback"] || [], p = l.push.bind(l); l.push = r, l = l.slice(); for (var i = 0; i < l.length; i++)r(l[i]); var c = p; t() }([])</script>
+    <script src="/playback/presentation/2.3/static/js/2.e0632484.chunk.js"></script>
+    <script src="/playback/presentation/2.3/static/js/main.1d544c4c.chunk.js"></script>
+    <script>
+        var url = new URL(window.location.href)
+        var mp4_url = url.origin + "/recording/" + url.pathname.split("/")[4] + ".mp4"
+        function if_url_exists(url, callback) {
+        let request = new XMLHttpRequest;
+        request.open('GET', url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.setRequestHeader('Accept', '*/*');
+        request.onprogress = function(event) {
+            let status = event.target.status;
+            let statusFirstNumber = (status).toString()[0];
+            switch (statusFirstNumber) {
+                case '2':
+                    request.abort();
+                    return callback(true);
+                default:
+                    request.abort();
+                    return callback(false);
+            };
+        };
+        request.send('');
+    };
+
+        function dowload_button(){
+        var element = document.getElementsByClassName("vjs-control-bar");
+        var div = document.createElement("div");
+        var a = document.createElement("a");
+        var span = document.createElement("span")
+        a.setAttribute("href", mp4_url)
+        a.setAttribute("target", "_blank")
+        a.style.cssText = "text-decoration: none;color: white;"
+        div.classList = "vjs-remaining-time vjs-time-control vjs-control"
+        a.appendChild(document.createTextNode("Download"))
+        span.className = ""
+        span.appendChild(a)
+        div.appendChild(span)
+        element[0].appendChild(div)
+        }
+
+function check_mp4(){
+    if_url_exists(mp4_url, function(exists) {
+    		console.log("MP4 present? :", exists);
+            
+		if(exists) {
+            dowload_button()
+		} 
+	});
+}
+    window.onload=check_mp4();
+    </script>
+</body>
+
+</html>
