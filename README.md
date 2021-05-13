@@ -4,17 +4,15 @@ Easily integrate this app into your BigBlueButton server to automatically conver
 
 ## How it works?
 
-After a BigBlueButton class ends, recording process kicks in, which will process recording in three stages - archieve, process and publish. Once recording is published, `/usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb` is executed.
+After a BigBlueButton class ends, recording process kicks in, which will process recording in three stages - archieve, process and publish. Once recording is published, `/usr/local/bigbluebutton/core/scripts/post_publish/bbb_mp4.rb` is executed.
 
-In `post_publish.rb`, we invoke `bbb-mp4.sh` with corresponding `meeting_id` to convert recording into mp4 video.
+In `bbb_mp4.rb`, we invoke `bbb-mp4.sh` with corresponding `meeting_id` to convert recording into mp4 video.
 
-`bbb-mp4.sh` starts a node process to launch Chrome browser with the BigBlueButton playback URL in a Virtual Screen Buffer, that plays the recording and record the screen in WEBM format. 
+`bbb-mp4.sh` starts a docker process to launch Chrome browser with the BigBlueButton playback URL in a Virtual Screen Buffer, that plays the recording and FFmpeg will capture the screen in mp4 format. MP4 will be moved to `/var/www/bigbluebutton-default/recording`.
 
-After compeltion of recording, FFmpeg is used to convert WEBM to MP4 and moved to `/var/www/bigbluebutton-default/recording`.
-
-When you visit the default BBB playback url `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>`, either of the following two cases happen:
-- MP4 video exists: you are redirect to `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4` to view MP4 video 
-- MP4 video doesn't exist: you are redirect to `https://<your-bbb-fqdn>/playback/presentation/2.0/playback_default.html?meetingId=<meeting_id>` to view default playback recording
+When you visit the default BBB playback url `https://<your-bbb-fqdn>/playback/presentation/2.3/<meeting_id>`, either of the following two cases happen:
+- MP4 video exists: A download button will appear at the bottom right. 
+- MP4 video doesn't exist: A download button will not appear.
 
 Hence, you can safely deploy this project on your existing BigBlueButton server. 
 - Going forward, all your recordings would get converted into MP4 videos. 
@@ -31,10 +29,9 @@ Hence, you can safely deploy this project on your existing BigBlueButton server.
 cd /var/www
 git clone https://github.com/manishkatyan/bbb-mp4.git
 cd bbb-mp4
-cp env-example .env
 ```
 Edit `.env` to update the following parameters:
-1. BBB_DOMAIN_NAME: fully-qualified domain name of your BigBlueButton server (Example - bbb.higheredlab.com)
+1. BBB_DOMAIN_NAME: <it will be automatically updated through bbb-mp4-install.sh> (Example - bbb.higheredlab.com)
 2. COPY_TO_LOCATION: location where converted MP4 videos should be kept. Leave it at the default value so that you can view MP4 video at `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`.
 
 
@@ -50,9 +47,9 @@ Edit `.env` to update the following parameters:
 5. Dependencies
 
 During this installation, `bbb-mp4-install.sh` will also do the following:
-- update the default `post_publish.rb` to invoke `bbb-mp4.sh` that will start automatic MP4 conversion after a class recording is published. 
+- create  `bbb_mp4.rb` to invoke `bbb-mp4.sh` that will start automatic MP4 conversion after a class recording is published. 
 - create a directory `recording` at `/var/www/bigbluebutton-default` to store converted MP4 videos that can be accessed via browser.
-- update the default playback at `/var/bigbluebutton/playback/presentation/2.0/playback.html` to redirect to MP4 videos at `/recording`.
+- update the default index.html at `/var/bigbluebutton/playback/presentation/2.3/index.html` to provide download button.
 
 ```sh
 # give bigbluebutton user sudo access
@@ -69,7 +66,7 @@ You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 
 
 No changes are required from your side to view MP4 videos created by bbb-mp4. 
 
-As we updated the default playback.html, when you would visit the default playback url - `https://<your-bbb-fqdn>/playback/presentation/2.0/playback.html?meetingId=<meeting_id>` - you would be redirected to the corresponding MP4 video url - `https://<your-bbb-fqdn>/recording/<meeting_id>.mp4`. 
+As we updated the default index.html, when you would visit the default playback url - `https://<your-bbb-fqdn>/playback/presentation/2.3/<meeting_id>` - you would see a download button
 
 If you are using Greenlight or Moodle, you will continue to use the same way to view MP4 videos.
 
@@ -78,8 +75,8 @@ If you are using Greenlight or Moodle, you will continue to use the same way to 
 In case you want to restore the default playback.html, please follow the steps below:
 
 ```sh
-mv /var/bigbluebutton/playback/presentation/2.0/playback_default.html /var/bigbluebutton/playback/presentation/2.0/playback.html
-mv /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb.default /usr/local/bigbluebutton/core/scripts/post_publish/post_publish.rb
+mv /var/bigbluebutton/playback/presentation/2.3/index_default.html /var/bigbluebutton/playback/presentation/2.3/index.html
+mv /usr/local/bigbluebutton/core/scripts/post_publish/bbb_mp4.rb /usr/local/bigbluebutton/core/scripts/post_publish/bbb_mp4.rb.old
 ```
 With this, you would be able to restore default playback behavior and default post_poublish action.
 
