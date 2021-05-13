@@ -11,8 +11,8 @@ set +a
 chmod +x *.sh
 
 echo "Adding bbb_mp4.rb"
-cp -r bbb_mp4.rb /usr/local/bigbluebutton/core/scripts/post_publish/  
 chmod 777 bbb_mp4.rb
+cp -r bbb_mp4.rb /usr/local/bigbluebutton/core/scripts/post_publish/  
 
 
 echo "Updating index.html"
