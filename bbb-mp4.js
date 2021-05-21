@@ -86,7 +86,23 @@ async function main() {
 
 
         // Set duration as recDuration
-        duration = recDuration.split(":").join("");
+        function get_recDuration(recDuration){
+        var duration_split = recDuration.split(":")
+        if (duration_split.length == 3){
+            duration = parseInt(duration_split[0],10)*3600 + parseInt(duration_split[1],10)* 60 + parseInt(duration_split[2],10)
+            // console.log(`Hour: ${duration_split[0]*3600} Minute: ${duration_split[1] * 60} Second : ${duration_split[2]}` )
+        }
+        else if(duration_split.length == 2){
+            duration = parseInt(duration_split[0],10) * 60 + parseInt(duration_split[1],10)
+        }
+        else {
+            duration = parseInt(duration_split[0],10)
+        }
+        // console.log(duration)
+        return duration
+    }
+        // Get the duration
+        duration = get_recDuration(recDuration)
         console.log(duration)
 
         await page.waitForSelector('button[class=vjs-big-play-button]');
