@@ -88,7 +88,7 @@ async function main() {
         // Set duration as recDuration
         function get_recDuration(recDuration){
         var duration_split = recDuration.split(":")
-        if (duration_split.length ==3 ){
+        if (duration_split.length == 3){
             duration = parseInt(duration_split[0],10)*3600 + parseInt(duration_split[1],10)* 60 + parseInt(duration_split[2],10)
             // console.log(`Hour: ${duration_split[0]*3600} Minute: ${duration_split[1] * 60} Second : ${duration_split[2]}` )
         }
