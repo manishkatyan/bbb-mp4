@@ -43,13 +43,19 @@ function check_mp4() {
 
         if (exists) {
             dowload_button()
+            console.log("Added Download button ")
         }
     });
 }
 
-while (!document.querySelector(".vjs-control-bar")) {
-    await new Promise(r => setTimeout(r, 500));
-}
-console.log(" Found \"vjs-control-bar\" \n Adding Download button..")
-check_mp4();
-console.log(" Added Download button ")
+const checkElement = async selector => {
+    while (document.querySelector(selector) === null) {
+        await new Promise(resolve => requestAnimationFrame(resolve))
+    }
+    return document.querySelector(selector);
+};
+checkElement('.vjs-control-bar').then((selector) => {
+    console.log(selector);
+    console.log("Found \"vjs-control-bar\" \n Adding Download button..")
+    check_mp4()
+});
