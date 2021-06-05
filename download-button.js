@@ -46,4 +46,8 @@ function check_mp4() {
         }
     });
 }
-window.onload = check_mp4();
+
+while (!document.querySelector(".vjs-control-bar")) {
+    await new Promise(r => setTimeout(r, 500));
+}
+check_mp4();
