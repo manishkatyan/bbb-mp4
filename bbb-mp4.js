@@ -80,13 +80,7 @@ async function main() {
         }
 
         // Get recording duration
-        await page.waitForTimeout(5 * 1000) //wait for 5 second to load duration
-        const element = await page.waitForSelector('.vjs-remaining-time-display');
-        const recDuration = await element.evaluate(el => el.textContent);
-
-
-        // Get duration
-        recDuration = await page.evaluate(() => {
+        const recDuration = await page.evaluate(() => {
             return document.getElementById("vjs_video_3_html5_api").duration
         });
         duration = recDuration
