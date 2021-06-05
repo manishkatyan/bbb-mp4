@@ -43,7 +43,7 @@ async function main() {
         }
 
         // Set exportname
-        var exportname =  new URL(url).pathname.split("/")[4]
+        var exportname = new URL(url).pathname.split("/")[4]
 
         // set duration to 0 
         var duration = 0
@@ -59,7 +59,7 @@ async function main() {
         });
 
         await page._client.send('Emulation.clearDeviceMetricsOverride')
-        // Catch URL unreachable error
+            // Catch URL unreachable error
         await page.goto(url, { waitUntil: 'networkidle2' }).catch(e => {
             console.error('Recording URL unreachable!');
             process.exit(2);
@@ -67,42 +67,28 @@ async function main() {
         await page.setBypassCSP(true)
 
         // Check if recording exists (search "404" message)
-        await page.waitForTimeout(5*1000)
-        try{
-        var loadMsg = await page.$eval('.error-code', el => el.textContent);
-        console.log(loadMsg)
-        if (loadMsg == "404") {
-            console.warn("Recording not found!");
-            process.exit(1);
-        }}
-        catch(err){
-           console.log("Recording found")
+        await page.waitForTimeout(5 * 1000)
+        try {
+            var loadMsg = await page.$eval('.error-code', el => el.textContent);
+            console.log(loadMsg)
+            if (loadMsg == "404") {
+                console.warn("Recording not found!");
+                process.exit(1);
+            }
+        } catch (err) {
+            console.log("Recording found")
         }
 
         // Get recording duration
-        await page.waitForTimeout(5*1000) //wait for 5 second to load duration
+        await page.waitForTimeout(5 * 1000) //wait for 5 second to load duration
         const element = await page.waitForSelector('.vjs-remaining-time-display');
         const recDuration = await element.evaluate(el => el.textContent);
 
 
         // Set duration as recDuration
-        function get_recDuration(recDuration){
-        var duration_split = recDuration.split(":")
-        if (duration_split.length == 3){
-            duration = parseInt(duration_split[0],10)*3600 + parseInt(duration_split[1],10)* 60 + parseInt(duration_split[2],10)
-            // console.log(`Hour: ${duration_split[0]*3600} Minute: ${duration_split[1] * 60} Second : ${duration_split[2]}` )
-        }
-        else if(duration_split.length == 2){
-            duration = parseInt(duration_split[0],10) * 60 + parseInt(duration_split[1],10)
-        }
-        else {
-            duration = parseInt(duration_split[0],10)
-        }
-        // console.log(duration)
-        return duration
-    }
+
         // Get the duration
-        duration = get_recDuration(recDuration)
+        duration = document.getElementById("vjs_video_3_html5_api").duration
         console.log(duration)
 
         await page.waitForSelector('button[class=vjs-big-play-button]');
@@ -113,16 +99,13 @@ async function main() {
         await page.click('button[class=vjs-big-play-button]', { waitUntil: 'domcontentloaded' });
 
         //  Start capturing screen with ffmpeg
-        const ls = child_process.spawn('sh',
-            ['ffmpeg-cmd.sh', ' ',
-                `${duration}`, ' ',
-                `${exportname}`, ' ',
-                `${disp_num}`
-            ],
-            {
-                shell: true
-            }
-        );
+        const ls = child_process.spawn('sh', ['ffmpeg-cmd.sh', ' ',
+            `${duration}`, ' ',
+            `${exportname}`, ' ',
+            `${disp_num}`
+        ], {
+            shell: true
+        });
 
         ls.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
@@ -137,14 +120,12 @@ async function main() {
         });
 
         await page.waitFor((duration * 1000))
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err)
-    }
-    finally {
+    } finally {
         page.close && await page.close()
         browser.close && await browser.close()
-        // Stop xvfb after browser close
+            // Stop xvfb after browser close
         xvfb.stopSync()
     }
 }

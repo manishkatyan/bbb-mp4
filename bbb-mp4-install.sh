@@ -3,6 +3,7 @@
 # Load .env variables
 cp env-example .env
 sed -i "s/BBB_DOMAIN_NAME=.*/BBB_DOMAIN_NAME=$(bbb-conf --secret | grep URL|  cut -d'/' -f3)/g" .env
+
 set -a
 source <(cat .env | \
     sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
@@ -23,8 +24,10 @@ if [ ! -f "/var/bigbluebutton/playback/presentation/2.3/index_default.html" ]; t
   # index_default.html is backup of default index.html that comes with fresh bbb install. If you want to remove bbb-mp4, rename index_default.html to index.html.
   cp /var/bigbluebutton/playback/presentation/2.3/index.html /var/bigbluebutton/playback/presentation/2.3/index_default.html
   
-  # the new index.html, that we are copying, will allow users to download recordings
-  cp index.html /var/bigbluebutton/playback/presentation/2.3/index.html
+  # copying download-button.js
+  cp download-button.js /var/bigbluebutton/playback/presentation/2.3/
+  # Add js tag just befor closing body tag
+  sed -i 's/<\/body>/<script src="\/playback\/presentation\/2.3\/mp4.js"><\/script><\/body>/g' /var/bigbluebutton/playback/presentation/2.3/index.html
 else
   echo "index_default.html exists. Skipping replacing.";
 fi
