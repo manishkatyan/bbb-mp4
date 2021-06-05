@@ -50,4 +50,6 @@ function check_mp4() {
 while (!document.querySelector(".vjs-control-bar")) {
     await new Promise(r => setTimeout(r, 500));
 }
+console.log(" Found \"vjs-control-bar\" \n Adding Download button..")
 check_mp4();
+console.log(" Added Download button ")
