@@ -89,6 +89,7 @@ async function main() {
 
         // Get the duration
         duration = document.getElementById("vjs_video_3_html5_api").duration
+
         console.log(duration)
 
         await page.waitForSelector('button[class=vjs-big-play-button]');
