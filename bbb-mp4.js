@@ -85,10 +85,12 @@ async function main() {
         const recDuration = await element.evaluate(el => el.textContent);
 
 
-        // Set duration as recDuration
+        // Get duration
+        recDuration = await page.evaluate(() => {
+            return document.getElementById("vjs_video_3_html5_api").duration
+        });
+        duration = recDuration
 
-        // Get the duration
-        duration = document.getElementById("vjs_video_3_html5_api").duration
 
         console.log(duration)
 
