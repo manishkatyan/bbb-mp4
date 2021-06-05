@@ -55,7 +55,6 @@ const checkElement = async selector => {
     return document.querySelector(selector);
 };
 checkElement('.vjs-control-bar').then((selector) => {
-    console.log(selector);
     console.log("Found \"vjs-control-bar\" \n Adding Download button..")
     check_mp4()
 });
