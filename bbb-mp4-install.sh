@@ -27,7 +27,7 @@ if [ ! -f "/var/bigbluebutton/playback/presentation/2.3/index_default.html" ]; t
   # copying download-button.js
   cp download-button.js /var/bigbluebutton/playback/presentation/2.3/
   # Add js tag just befor closing body tag
-  sed -i 's/<\/body>/<script src="\/playback\/presentation\/2.3\/mp4.js"><\/script><\/body>/g' /var/bigbluebutton/playback/presentation/2.3/index.html
+  sed -i 's/<\/body>/<script src="\/playback\/presentation\/2.3\/download-button.js"><\/script><\/body>/g' /var/bigbluebutton/playback/presentation/2.3/index.html
 else
   echo "index_default.html exists. Skipping replacing.";
 fi
