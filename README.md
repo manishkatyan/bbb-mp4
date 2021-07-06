@@ -71,13 +71,8 @@ With this, you would be able to restore default playback behavior and default po
 ## BigBlueButton Tech Support
 
 Are you facing difficulties with your BigBlueButton server?
-
-Lean on our expertise to smoothly run your BigBlueButton server.
-
 Get 24×7 connected with our Tech team. On facing any difficulties, just message us and we’ll promptly fix it.
-
-Start today with a monthly subscription for $59 per BBB server.
-
+Start today with a monthly subscription for $40 per BBB server.
 [Learn More](https://www.webhostingzone.org) about the scope of Tech support.
 
 bbb-mp4 app builds on the ideas from several other projects, including:
