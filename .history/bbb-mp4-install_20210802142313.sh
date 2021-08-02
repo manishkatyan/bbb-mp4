@@ -32,7 +32,7 @@ else
   echo "index_default.html exists. Skipping replacing.";
 fi
 
-#Pulling Docker image.
+#creating Docker image.
 echo "Pulling Docker image  manishkatyan/bbb-mp4"
 docker pull manishkatyan/bbb-mp4
 
