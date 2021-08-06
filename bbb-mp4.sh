@@ -10,7 +10,7 @@ MEETING_ID=$1
 
 echo "converting $MEETING_ID to mp4" |  systemd-cat -p warning -t bbb-mp4
 
-docker run --rm -d \
+sudo docker run --rm -d \
                 --name $MEETING_ID \
                 -v $COPY_TO_LOCATION:/usr/src/app/download \
                 --env REC_URL=https://$BBB_DOMAIN_NAME/playback/presentation/2.3/$MEETING_ID \

@@ -52,8 +52,13 @@ During this installation, `bbb-mp4-install.sh` will also do the following:
 - update the default index.html at `/var/bigbluebutton/playback/presentation/2.3/index.html` to provide download button.
 
 ```sh
-# Add bigbluebutton user docker access
-usermod -aG docker bigbluebutton
+# give bigbluebutton user sudo access
+usermod -aG sudo bigbluebutton
+
+# make sudo access passwordless
+sudo visudo
+# add the following line at the end of the file
+bigbluebutton ALL=(ALL) NOPASSWD: ALL
 
 ```
 You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 to run correctly. 
