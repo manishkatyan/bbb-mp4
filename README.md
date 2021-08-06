@@ -59,6 +59,7 @@ usermod -aG sudo bigbluebutton
 sudo visudo
 # add the following line at the end of the file
 bigbluebutton ALL=(ALL) NOPASSWD: ALL
+
 ```
 You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 to run correctly. 
 

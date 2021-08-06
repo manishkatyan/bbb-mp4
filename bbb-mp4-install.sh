@@ -12,7 +12,6 @@ set +a
 chmod +x *.sh
 
 echo "Adding bbb_mp4.rb"
-chmod 777 bbb_mp4.rb
 cp -r bbb_mp4.rb /usr/local/bigbluebutton/core/scripts/post_publish/  
 
 
@@ -32,7 +31,7 @@ else
   echo "index_default.html exists. Skipping replacing.";
 fi
 
-#creating Docker image.
-echo "creating Docker image bbb-mp4:v1"
-docker build -t bbb-mp4:2.3 .
+#Pulling Docker image.
+echo "Pulling Docker image  manishkatyan/bbb-mp4"
+docker pull manishkatyan/bbb-mp4
 
