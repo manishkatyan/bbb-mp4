@@ -121,6 +121,10 @@ Better audio quality, increase recording processing speed, dynamic video profile
 
 Livestream your BigBlueButton classes on Youtube or Facebook to thousands of your users.
 
+### [bbb-recording-server](https://github.com/manishkatyan/bbb-recording-server)
+
+With this app, you can process BigBlueButton recordings on a separate server, called BBB Recording Server. Separation of recordings from BigBlueButton (client) improves performance as all server resources are dedicated towards conducting live classes.
+
 ### [100 Most Googled Questions on BigBlueButton](https://higheredlab.com/bigbluebutton-guide/)
 
 Everything you need to know about BigBlueButton including pricing, comparison with Zoom, Moodle integrations, scaling, and dozens of troubleshooting.
