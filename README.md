@@ -81,17 +81,14 @@ mv /usr/local/bigbluebutton/core/scripts/post_publish/bbb_mp4.rb /usr/local/bigb
 ```
 With this, you would be able to restore default playback behavior and default post_poublish action.
 
-## BigBlueButton Tech Support
+## [BigBlueButton Tech Support](https://higheredlab.com/bigbluebutton-support/)
+### Are you facing difficulties with your BigBlueButton server?
+Lean on our expertise to smoothly run your BigBlueButton server. We can: 
+1. troubleshoot your BigBlueButton servers to improve audio and video performance,
+1. install additional features such as streaming, mp4 recordings and attendance, and
+1. provide managed BigBlueButton servers, starting at $12 per month
 
-Are you facing difficulties with your BigBlueButton server?
-
-Lean on our expertise to smoothly run your BigBlueButton server.
-
-Get 24×7 connected with our Tech team. On facing any difficulties, just message us and we’ll promptly fix it.
-
-Start today with a monthly subscription for $59 per BBB server.
-
-[Learn More](https://higheredlab.com/bigbluebutton-support/) about the scope of Tech support.
+[Click here to learn more](https://higheredlab.com/bigbluebutton-support/)
 
 ## More on BigBlueButton
 
