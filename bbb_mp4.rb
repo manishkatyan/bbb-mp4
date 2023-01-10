@@ -13,6 +13,6 @@ opts = Optimist::options do
 end
 meeting_id = opts[:meeting_id]
 
-bbb_mp4_cmd = " sudo bash /var/www/bbb-mp4/bbb-mp4.sh #{meeting_id} &"
+bbb_mp4_cmd = "bash /var/www/bbb-mp4/bbb-mp4.sh #{meeting_id} &"
 status = system (bbb_mp4_cmd)
 BigBlueButton.logger.info("MP4 conversion started for #{meeting_id}: #{status}")
