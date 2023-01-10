@@ -17,4 +17,8 @@ ffmpeg -y -nostats -draw_mouse 0 -s 1280x800 \
 	-preset fast \
 	-movflags faststart \
 	-t $DURATION \
-	/usr/src/app/download/$EXPORT_NAME.mp4
+	/usr/src/app/processing/$EXPORT_NAME.mp4
+
+# move the video to the processed folder
+echo "Moving video to processed folder"
+mv /usr/src/app/processing/$EXPORT_NAME.mp4 /usr/src/app/processed/$EXPORT_NAME.mp4
