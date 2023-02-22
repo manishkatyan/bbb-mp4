@@ -89,17 +89,29 @@ mv /usr/local/bigbluebutton/core/scripts/post_publish/bbb_mp4.rb /usr/local/bigb
 
 With this, you would be able to restore default playback behavior and default post_poublish action.
 
-## [BigBlueButton Tech Support](https://higheredlab.com/bigbluebutton-support/)
+## Artificial Intelligence powered Online Classes on BigBlueButton
+Use live transcription, speech-to-speech translation and class notes with topics, summaries and sentiment analysis to guarantee the success of your online classes
 
-### Are you facing difficulties with your BigBlueButton server?
+### Transcription [DEMO](https://higheredlab.com/)
+Help your students understand better by providing automated class notes
+1. MP4 class recordings with subtitles
+2. Full transcription of the class with topics, summary and sentiments
 
-Lean on our expertise to smoothly run your BigBlueButton server. We can:
+### Translation [DEMO](https://higheredlab.com/)
+Speech-to-speech translate your classes in real-time into 100+ languages
+1. Hear real-time translation of the class in any of 100+ language such as French, Spanish and German
+2. View the captions in translated languages
 
-1. troubleshoot your BigBlueButton servers to improve audio and video performance,
-1. install additional features such as streaming, mp4 recordings and attendance, and
-1. provide managed BigBlueButton servers, starting at $12 per month
+## BigBlueButton-as-a-Service
 
-[Click here to learn more](https://higheredlab.com/bigbluebutton-support/)
+Everything you need for online classes at scale on BigBlueButton, starting at $12 / month:
+1. HD video
+2. View attendance
+3. Stream on YouTube
+4. Integrate with Moodle
+5. Upgrade/cancel anytime
+
+[Click here to get started](https://higheredlab.com/pricing/)
 
 ## More on BigBlueButton
 
