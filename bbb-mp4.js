@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const child_process = require('child_process');
 const Xvfb = require('xvfb');
+const fs = require("fs");
+const {randomUUID} = require('crypto');
 
 // Generate randome display port number to avoide xvfb failure
 var disp_num = Math.floor(Math.random() * (200 - 99) + 99);
@@ -23,7 +25,12 @@ var options = {
     ],
 }
 options.executablePath = "/usr/bin/google-chrome"
+
+const logFolder = '/usr/src/app/processed/';
+let logFile;
+
 async function main() {
+    let tempLogFile = logInit();
     let browser, page;
     try {
         xvfb.startSync()
@@ -44,6 +51,7 @@ async function main() {
         // Set exportname
         var exportname = new URL(url).pathname.split("/")[4]
 
+        logStart(tempLogFile, exportname);
         // set duration to 0 
         var duration = 0
 
@@ -116,14 +124,43 @@ async function main() {
         });
 
         await page.waitFor((duration * 1000))
+        logDone(exportname);
     } catch (err) {
         console.log(err)
+        logError(exportname)
     } finally {
         page.close && await page.close()
         browser.close && await browser.close()
             // Stop xvfb after browser close
         xvfb.stopSync()
     }
+}
+
+function logInit() {
+    console.log = log;
+    console.error = log;
+
+    let uuidFileName = randomUUID();
+    logFile = fs.createWriteStream(logFolder + uuidFileName, {flags: 'a'})
+    return uuidFileName;
+}
+
+function logStart(tempLogFilename, exportName) {
+    fs.renameSync(logFolder + tempLogFilename, logFolder + exportName + '.start');
+    logFile = fs.createWriteStream(logFolder + exportName + '.start', {flags: 'a'});
+}
+
+function logError(exportName) {
+    fs.renameSync(logFolder + exportName + '.start', logFolder + exportName + '.error');
+}
+
+function logDone(exportName) {
+    fs.renameSync(logFolder + exportName + '.start', logFolder + exportName + '.done');
+}
+
+function log(d) {
+    logFile.write(d + '\n');
+    process.stdout.write(d + '\n');
 }
 
 main()
