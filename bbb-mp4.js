@@ -26,6 +26,8 @@ var options = {
 }
 options.executablePath = "/usr/bin/google-chrome"
 
+const disableAsyncRecordings = false;
+
 const logFolder = '/usr/src/app/processed/';
 let logFile;
 
@@ -33,6 +35,11 @@ async function main() {
     let tempLogFile = logInit();
     let browser, page;
     try {
+        if (disableAsyncRecordings) {
+            console.log("Waiting other recordings to finish");
+            await waitRecordingsToFinish();
+        }
+
         xvfb.startSync()
 
         var url = process.argv[2];
@@ -161,6 +168,24 @@ function logDone(exportName) {
 function log(d) {
     logFile.write(d + '\n');
     process.stdout.write(d + '\n');
+}
+
+async function waitRecordingsToFinish() {
+    while (existsRecordings()) {
+        await new Promise(resolve => setTimeout(resolve, random(1000, 3000)));
+    }
+}
+
+function existsRecordings() {
+    // count of files in folder that indicates recordings
+    return fs.readdirSync(logFolder)
+        .filter(file => file.endsWith('.start'))
+        .length > 0;
+}
+
+// min and max included
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 main()
