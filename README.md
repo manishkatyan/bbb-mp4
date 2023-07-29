@@ -70,6 +70,15 @@ sudo chown -R bigbluebutton:bigbluebutton /var/www/bbb-mp4
 
 You need to give user bigbluebutton sudo access, as detailed above, for bbb-mp4 to run correctly.
 
+If you are using BigBlueButton 2.6 or higher version you need to add nginx location to access mp4 recording
+```sh
+cd /usr/share/bigbluebutton/nginx
+sudo touch bbb-mp4.nginx
+sudo bash -c "echo 'location /recording { root    /var/www/bigbluebutton-default; }' > bbb-mp4.nginx"
+sudo nginx -t
+sudo nginx -s reload
+```
+
 ## How to use it
 
 No changes are required from your side to view MP4 videos created by bbb-mp4.
