@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const child_process = require('child_process');
 const Xvfb = require('xvfb');
+const fs = require("fs");
+const {randomUUID} = require('crypto');
 
 // Generate randome display port number to avoide xvfb failure
 var disp_num = Math.floor(Math.random() * (200 - 99) + 99);
@@ -23,9 +25,21 @@ var options = {
     ],
 }
 options.executablePath = "/usr/bin/google-chrome"
+
+const disableAsyncRecordings = false;
+
+const logFolder = '/usr/src/app/processed/';
+let logFile;
+
 async function main() {
+    let tempLogFile = logInit();
     let browser, page;
     try {
+        if (disableAsyncRecordings) {
+            console.log("Waiting other recordings to finish");
+            await waitRecordingsToFinish();
+        }
+
         xvfb.startSync()
 
         var url = process.argv[2];
@@ -44,6 +58,7 @@ async function main() {
         // Set exportname
         var exportname = new URL(url).pathname.split("/")[4]
 
+        logStart(tempLogFile, exportname);
         // set duration to 0 
         var duration = 0
 
@@ -116,14 +131,61 @@ async function main() {
         });
 
         await page.waitFor((duration * 1000))
+        logDone(exportname);
     } catch (err) {
         console.log(err)
+        logError(exportname)
     } finally {
         page.close && await page.close()
         browser.close && await browser.close()
             // Stop xvfb after browser close
         xvfb.stopSync()
     }
+}
+
+function logInit() {
+    console.log = log;
+    console.error = log;
+
+    let uuidFileName = randomUUID();
+    logFile = fs.createWriteStream(logFolder + uuidFileName, {flags: 'a'})
+    return uuidFileName;
+}
+
+function logStart(tempLogFilename, exportName) {
+    fs.renameSync(logFolder + tempLogFilename, logFolder + exportName + '.start');
+    logFile = fs.createWriteStream(logFolder + exportName + '.start', {flags: 'a'});
+}
+
+function logError(exportName) {
+    fs.renameSync(logFolder + exportName + '.start', logFolder + exportName + '.error');
+}
+
+function logDone(exportName) {
+    fs.renameSync(logFolder + exportName + '.start', logFolder + exportName + '.done');
+}
+
+function log(d) {
+    logFile.write(d + '\n');
+    process.stdout.write(d + '\n');
+}
+
+async function waitRecordingsToFinish() {
+    while (existsRecordings()) {
+        await new Promise(resolve => setTimeout(resolve, random(1000, 3000)));
+    }
+}
+
+function existsRecordings() {
+    // count of files in folder that indicates recordings
+    return fs.readdirSync(logFolder)
+        .filter(file => file.endsWith('.start'))
+        .length > 0;
+}
+
+// min and max included
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 main()
