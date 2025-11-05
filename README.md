@@ -74,7 +74,7 @@ If you are using BigBlueButton 2.6 or higher version you need to add nginx locat
 ```sh
 cd /usr/share/bigbluebutton/nginx
 sudo touch bbb-mp4.nginx
-sudo bash -c "echo 'location /recording { root    /var/www/bigbluebutton-default; }' > bbb-mp4.nginx"
+sudo bash -c "echo 'location /mp4 { root    /var/www/bigbluebutton-default; }' > bbb-mp4.nginx"
 sudo nginx -t
 sudo nginx -s reload
 ```

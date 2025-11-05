@@ -1,7 +1,7 @@
 const url = new URL(window.location.href);
 const origin = url.origin;
 const recordingId = url.pathname.split("/")[4];
-const mp4_url = `${origin}/recording/${recordingId}.mp4`;
+const mp4_url = `${origin}/mp4/${recordingId}.mp4`;
 
 const class_notes_json = `${origin}/presentation/${recordingId}/class_notes.json`;
 
